@@ -10,14 +10,18 @@ class Board {
         this.firstSelectedFrog = null;
         this.resetGame = this.resetGame.bind(this); // ?
         this.modal = new Modal('#modalShadow', "#modalBody", "#modalMessage", "#modalButton");
-        
+
         this.initializeApp = initializeApp;
-        
+
     }
 
     initializeBoard() {
         //clear old board
         $('.gameBoard').empty()
+        $('#player1').empty();
+        $('#player2').empty();
+        $('#player1').html('0');
+        $('#player2').html('0');
         this.modal.init();
 
         //populates board by creating a 2d array representind the board on the DOM
@@ -25,7 +29,6 @@ class Board {
             this.board.push(new Array(this.row))
         }
 
-        // var tileContainer = $('<div>').addClass('tileContainer')
         var colors = ['red', 'blue', 'yellow', 'brown'];
         for(var row = 0; row < this.rows; row++) {
             for(var col = 0; col < this.columns; col++) {
@@ -55,8 +58,6 @@ class Board {
         this.handleCellClick = this.handleCellClick.bind(this);
         $('.tile').on('click', '.leaf', this.handleCellClick);
         $('.tile').on('click', '.frog', this.handleCellClick);
-        //initialize players
-        // this.currentPlayer = 0;
     }
 
 
@@ -83,7 +84,6 @@ class Board {
     }
 
     handleCellClick() {
-
         var tile = event.currentTarget
         var col = parseInt($(tile).attr('data-col'));
         var row = parseInt($(tile).attr('data-row'));
@@ -148,7 +148,15 @@ class Board {
         console.log(this.winCondition());
         if(this.winCondition()){
             //endgame, modal
-            this.modal.updateMessage('Player One Wins');
+
+            var winnerMessage = "";
+            if (parseInt($('#player1').val()) > parseInt($('#player2').val())) {
+                winnerMessage = "Player 1 is the winner"
+            }
+            else {
+                winnerMessage = "Player 2 is the winner"
+            }
+            this.modal.updateMessage(winnerMessage);
             this.modal.show();
         }
     }
@@ -283,9 +291,9 @@ class Board {
     winCondition(){
         var allFalse = true;
         var maxScoreReached = false;
-        if (this.playerArray[0].calculateScore() > 40 || this.playerArray[1].calculateScore() > 40){
-            maxScoreReached = true;
-        }
+        // if (this.playerArray[0].calculateScore() > 40 || this.playerArray[1].calculateScore() > 40){
+        //     maxScoreReached = true;
+        // }
         for (var row = 0; row < this.rows; row++){
             for(var col = 0; col < this.columns; col++){
                 var frog = this.board[row][col];
@@ -304,7 +312,7 @@ class Board {
 
     }
     resetGame(){
-        
+
         // reset all game properties / variables
         // call initialize board
 
