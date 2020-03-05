@@ -245,7 +245,7 @@ body {
 
 }
 
-@media only screen and (min-width:580px) and (max-width:767px){
+@media only screen and (min-width:580px) and (max-width:781px){
 	.tile{
 		margin: 2px;
 	}
