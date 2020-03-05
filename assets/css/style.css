@@ -265,6 +265,39 @@ header{
 #instructions {
   font-size: 10pt;
 }
+
+.rotateBack {
+  animation-name: flippingLeft;
+  animation-duration: 1s;
+  animation-timing-function:ease-out;
+  animation-fill-mode: forwards;
+
+}
+.rotate {
+  animation-name: flippingRight ;
+  animation-duration: 1s ;
+  animation-timing-function:ease-out;
+  animation-fill-mode: forwards;
+}
+
+
+@keyframes flippingRight {
+  0% {
+    transform: rotateY(0deg)
+  }
+  100% {
+    transform: rotateY(180deg)
+  }
+}
+
+@keyframes flippingLeft {
+  0% {
+    transform: rotateY(180deg)
+  }
+  100% {
+    transform: rotateY(360deg)
+  }
+}
 @media only screen and (min-width:768px) and (max-width:990px) {
 	.tile{
 		margin: 3px;

@@ -84,12 +84,16 @@ class Board {
             this.currentPlayer++;
             $('.player1').css("border", "none");
             $('.player2').css("border", "red medium solid");
+            $('.frog').removeClass('rotateBack')
+            $('.frog').addClass('rotate')
         }
         else {
             this.currentPlayer = 0;
 
             $('.player2').css("border", "none");
             $('.player1').css("border", "blue medium solid");
+            $('.frog').removeClass('rotate')
+            $('.frog').addClass('rotateBack')
         }
 
     }
@@ -135,6 +139,7 @@ class Board {
                     this.playerArray[this.currentPlayer].setFrogBag(removedFrog.getColor());
 
                     //move frog
+
                     var frogThatJumped = this.popFrog(this.firstSelectedFrog);
                     this.setFrog(frogThatJumped, action_row, action_col)
 
@@ -296,6 +301,7 @@ class Board {
     }
 
     setFrog(frog, row, col) {
+
         var element = frog.getFrog();
         var selector = $('div.tile[data-row=' + row + '][data-col=' + col + ']');
         frog.setPosition(row, col);
