@@ -185,7 +185,7 @@ class Board {
     }
 
     croak() {
-        var b = new Audio('http://www.californiaherps.com/sounds/psierratldn408solo.mp3');
+        // var b = new Audio('http://www.californiaherps.com/sounds/psierratldn408solo.mp3');
         var a = new Audio('http://mrclan.com/fastdl/tfc/sound/fr-ribbit.wav');
 
         a.play();
