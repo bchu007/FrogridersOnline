@@ -22,6 +22,9 @@ class Board {
         $('#player2').empty();
         $('#player1').html('0');
         $('#player2').html('0');
+        $('.player1').css("border", "none");
+        $('.player2').css("border", "none");
+        $('.player1').css("border", "white thin solid");
         this.modal.init();
 
         //populates board by creating a 2d array representind the board on the DOM
@@ -74,10 +77,15 @@ class Board {
         //returns nothing
         if(this.currentPlayer < this.playerArray.length-1) {
             this.currentPlayer++;
+            $('.player1').css("border", "none");
+            $('.player2').css("border", "white thin solid");
             console.log(this.currentPlayer);
         }
         else {
             this.currentPlayer = 0;
+
+            $('.player2').css("border", "none");
+            $('.player1').css("border", "white thin solid");
             console.log('else statement alternatePlayer', this.currentPlayer);
         }
 
