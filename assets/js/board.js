@@ -11,6 +11,7 @@ class Board {
         this.resetGame = this.resetGame.bind(this); // ?
         this.modal = new Modal('#modalShadow', "#modalBody", "#modalMessage", "#modalButton");
 
+
         this.initializeApp = initializeApp;
 
     }
@@ -24,7 +25,7 @@ class Board {
         $('#player2').html('0');
         $('.player1').css("border", "none");
         $('.player2').css("border", "none");
-        $('.player1').css("border", "white thin solid");
+        $('.player1').css("border", "blue medium solid");
         this.modal.init();
 
         //populates board by creating a 2d array representind the board on the DOM
@@ -78,26 +79,28 @@ class Board {
         if(this.currentPlayer < this.playerArray.length-1) {
             this.currentPlayer++;
             $('.player1').css("border", "none");
-            $('.player2').css("border", "white thin solid");
+            $('.player2').css("border", "red medium solid");
             console.log(this.currentPlayer);
         }
         else {
             this.currentPlayer = 0;
 
             $('.player2').css("border", "none");
-            $('.player1').css("border", "white thin solid");
+            $('.player1').css("border", "blue medium solid");
             console.log('else statement alternatePlayer', this.currentPlayer);
         }
 
     }
 
     handleCellClick() {
+
         var tile = event.currentTarget
         var col = parseInt($(tile).attr('data-col'));
         var row = parseInt($(tile).attr('data-row'));
 
         if(this.possibleActions.length === 0) {
             var clickedFrog = this.board[row][col];
+            this.vaildMove();
             this.firstSelectedFrog = clickedFrog;
             if (this.board[row][col]) {
                 //check valid moves
@@ -115,7 +118,7 @@ class Board {
                 // console.log(action_row, row, action_col, col);
                 if(action_row === row && action_col === col) {
                     console.log('clicked right one');
-
+                    this.splash()
                     // console.log(this.possibleActions);
                     var target_row = this.possibleActions[i]['middle'][0];
                     var target_col = this.possibleActions[i]['middle'][1];
@@ -137,6 +140,7 @@ class Board {
                         console.log('test', this.playerArray[this.currentPlayer].calculateScore())
                         $('#player' + (this.currentPlayer+1)).text(this.playerArray[this.currentPlayer].calculateScore());
                         console.log(this.currentPlayer, this.playerArray);
+                        console.log('selected')
                     }
                     else {
                         this.clearTiles();
@@ -150,6 +154,8 @@ class Board {
                 }
                 else {
                     console.log("clicked the wrong one");
+                    this.invaildMove()
+
                 }
             }
         }
@@ -158,7 +164,7 @@ class Board {
             //endgame, modal
 
             var winnerMessage = "";
-            if (parseInt($('#player1').val()) > parseInt($('#player2').val())) {
+            if (parseInt($('#player1').text()) > parseInt($('#player2').text())) {
                 winnerMessage = "Player 1 is the winner"
             }
             else {
@@ -167,6 +173,21 @@ class Board {
             this.modal.updateMessage(winnerMessage);
             this.modal.show();
         }
+    }
+
+    invaildMove() {
+        var a = new Audio('http://david.guerrero.free.fr/Effects/BananaImpact.wav');
+        a.play();
+    }
+
+    vaildMove() {
+        var a = new Audio('http://www.davidwills.us/cmis102a/Raptor2/drip.wav');
+        a.play();
+    }
+
+    splash() {
+        var a = new Audio('http://4umi.com/web/sound/splash.wav');
+        a.play();
     }
 
     findValidMoves(frog) {
@@ -191,10 +212,14 @@ class Board {
         }
 
         if(this.possibleActions.length === 0) {
+            this.invaildMove();
             return false;
         }
         else {
+            console.log(frog);
+            this.markFrog(frog);
             return true;
+
         }
 
         // if relative direction.x < 0 || relativeDirection.x > 9 || relativeDirection.y < 0 || relativeDirection.y > 9 { relativeDirection = false;}
@@ -245,6 +270,12 @@ class Board {
         var x = $('[data-row=' + index.row + '][data-col=' + index.col + '] div.frog')
         x.remove();
         return frogRemoved;
+    }
+
+    markFrog(frog) {
+        var index = frog.getPosition();
+        var x = $('[data-row=' + index.row + '][data-col=' + index.col + '] div.frog')
+        x.addClass('shadowed');
     }
 
     setFrog(frog, row, col) {
