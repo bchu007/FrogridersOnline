@@ -13,14 +13,13 @@ class Frog {
     setPosition(row, col){
         this.row = row;
         this.col = col;
-        
+
     }
     getPosition(){
         return {row: this.row, col: this.col};
     }
     handleClick(){
         console.log(this)
-
     }
     setClickHandler(frog) {
         this.handleClick = this.handleClick.bind(this);
