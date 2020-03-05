@@ -191,7 +191,7 @@ class Board {
         a.play();
     }
 
-    validMove() {
+    validMove() { //high pitched water splash
         var a = new Audio('http://www.davidwills.us/cmis102a/Raptor2/drip.wav');
         a.play();
     }
