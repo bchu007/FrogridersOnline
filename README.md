@@ -1,6 +1,7 @@
 # Frogridders Online
 A two player checkers type board game.
 
+![](https://i.imgur.com/GsmCCDy.gif)
 # Build Instructions from Scratch
 For the repo onto you local computer
 the entry point for the game is index.html
