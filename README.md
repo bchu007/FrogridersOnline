@@ -1,2 +1,3 @@
 # frogriders
-Hackathon 1: Replicate Frogriders Board Game
+A two player checkers type board game.
+
